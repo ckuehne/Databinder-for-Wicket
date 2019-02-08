@@ -6,6 +6,29 @@ http://databinder.net/
 
 Version History
 
+1.7 Updates Databinder to Wicket 1.7 and Hibernate 5.2
+
+Removed NorewriteWebResponse
+
+Wicket 1.7 has a large number of different web response classes. This makes it cumbersome to implement the no-url-rewriting. It also makes it brittle with respect to implementation changes.
+Instead of using NorewriteWebResponse, simply use the new servlet 3.0 session-config tracking-mode (set for example to COOKIES or SSL) feature in your web apps web.xml.
+
+Removed CookieRequestCycle
+- functionality stays the same
+- AuthApplication interface changes (see below)
+
+AuthDataApplication:
+- change message digest to SHA-512
+- password of existing DataUsers in the database must be updated accordingly
+- let user set new password
+- length of password column must be set to
+
+AuthApplication: new method getSignInCookieDefaults
+- deleted ExceptionFilteringRequestCycle
+
+Remove ScriptLink
+- Use ResourceLink or JavaScriptResourceReference instead.
+
 1.2.1 Updates Databinder to the latest Wicket and Hibernate versions.
 
 1.2 This release represents a significant refactor of the Databinder toolkit to allow it to work with any underlying persistence technology. Core functionality now resides in modules like databinder-models, while specific functionality is in databinder-models-hib for Hibernate, or databinder-models-ao for ActiveObjects. The "databinder" dependency that was used through 1.1 is now databinder-app and databinder-app-hib for Hibernate applications.
